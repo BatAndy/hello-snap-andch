@@ -39,6 +39,7 @@ jobs:
       - run:
           name: Decrypt credentials
           command: |
+            echo $SNAPCRAFT_CREDENTIALS_KEY
             openssl aes-256-cbc -d \
               -in .circleci/credentials.enc \
               -out credentials \
