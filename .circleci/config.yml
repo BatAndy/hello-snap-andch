@@ -37,9 +37,13 @@ jobs:
             apt install -y openssl
 
       - run:
+          name: test env
+          command: |
+             echo $SNAPCRAFT_CREDENTIALS_KEY
+
+      - run:
           name: Decrypt credentials
           command: |
-            echo $SNAPCRAFT_CREDENTIALS_KEY
             openssl aes-256-cbc -d \
               -in .circleci/credentials.enc \
               -out credentials \
