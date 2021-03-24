@@ -37,11 +37,6 @@ jobs:
             apt install -y openssl
 
       - run:
-          name: test env
-          command: |
-             echo $SNAPCRAFT_CREDENTIALS_KEY
-
-      - run:
           name: Decrypt credentials
           command: |
             openssl aes-256-cbc -d \
@@ -51,11 +46,13 @@ jobs:
 
       - run:
           name: Authenticate snapcraft
-          command: snapcraft login --with credentials
+          command: |
+                   snapcraft login --with credentials
+                   snapcraft whoami
 
       - run:
           name: Push/release snap
-          command: snapcraft push *.snap --release edge
+          command: snapcraft --debug upload *.snap --release edge
 
 workflows:
   version: 2
